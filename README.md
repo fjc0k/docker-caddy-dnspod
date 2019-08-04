@@ -57,6 +57,8 @@ services:
 
 了解 `Caddyfile` 的语法请访问其官网：[https://caddyserver.com/docs/caddyfile](https://caddyserver.com/docs/caddyfile)。
 
+> **在 `Caddyfile` 里可以使用 `dockerhost` 指向宿主机。** 
+
 ## 许可
 
 Jay Fong © MIT
