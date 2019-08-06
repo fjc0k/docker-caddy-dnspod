@@ -55,8 +55,6 @@ services:
     restart: unless-stopped
 ```
 
-如果你修改了 `./Caddyfile`，可以使用命令 `docker-compose exec -T caddy pkill -10 caddy` 无缝重启。
-
 了解 `Caddyfile` 的语法请访问其官网：[https://caddyserver.com/docs/caddyfile](https://caddyserver.com/docs/caddyfile)。
 
 > **在 `Caddyfile` 里可以使用 `dockerhost` 指向宿主机。** 
