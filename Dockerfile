@@ -5,7 +5,7 @@ WORKDIR /caddy
 ARG telemetry=off
 ARG plugins=http.cache,http.cors,http.expires,http.realip,http.ipfilter,tls.dns.dnspod
 
-ENV CADDY_VERSION=1.0.1
+ENV CADDY_VERSION=1.0.3
 ENV GET_CADDY_URL="https://caddyserver.com/download/linux/amd64?plugins=${plugins}&license=personal&telemetry=${telemetry}"
 # 证书申请人邮箱
 ENV APPLICANT_EMAIL=""
