@@ -1,9 +1,11 @@
-# ref: https://github.com/abiosoft/caddy-docker/blob/master/Dockerfile
-
 #
 # Builder
 #
-FROM abiosoft/caddy:builder as builder
+FROM golang:1.13-alpine
+
+RUN apk add --no-cache git gcc musl-dev
+
+COPY builder.sh /usr/bin/builder.sh
 
 ARG version="master"
 ARG plugins="cache,cors,expires,realip,ipfilter,dnspod"

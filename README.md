@@ -59,6 +59,10 @@ services:
 
 > **在 `Caddyfile` 里可以使用 `dockerhost` 指向宿主机。** 
 
+## 参考
+
+- [abiosoft/caddy-docker](https://github.com/abiosoft/caddy-docker)
+
 ## 许可
 
 Jay Fong © MIT
