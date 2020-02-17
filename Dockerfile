@@ -56,6 +56,7 @@ WORKDIR /srv
 COPY Caddyfile /caddy/Caddyfile
 COPY index.html /srv/index.html
 COPY entrypoint.sh entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 # install process wrapper
 COPY --from=builder /go/bin/parent /bin/parent
