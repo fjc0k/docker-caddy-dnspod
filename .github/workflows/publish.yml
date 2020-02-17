@@ -1,0 +1,14 @@
+name: Publish
+
+on: push
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: build & publish
+      run: |
+        docker login -u jayfong -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+        docker build -t jayfong/caddy-dnspod:latest .
+        docker push jayfong/caddy-dnspod:latest
