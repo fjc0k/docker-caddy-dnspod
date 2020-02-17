@@ -1,28 +1,61 @@
-FROM alpine:latest
+# ref: https://github.com/abiosoft/caddy-docker/blob/master/Dockerfile
 
-WORKDIR /caddy
+#
+# Builder
+#
+FROM abiosoft/caddy:builder as builder
 
-ARG telemetry=off
-ARG plugins=http.cache,http.cors,http.expires,http.realip,http.ipfilter,tls.dns.dnspod
+ARG version="master"
+ARG plugins="cache,cors,expires,realip,ipfilter,dnspod"
+ARG enable_telemetry="false"
 
-ENV CADDY_VERSION=1.0.3
-ENV GET_CADDY_URL="https://caddyserver.com/download/linux/amd64?plugins=${plugins}&license=personal&telemetry=${telemetry}"
+# process wrapper
+RUN go get -v github.com/abiosoft/parent
+
+RUN VERSION=${version} PLUGINS=${plugins} ENABLE_TELEMETRY=${enable_telemetry} /bin/sh /usr/bin/builder.sh
+
+#
+# Final stage
+#
+FROM alpine:3.10
+LABEL maintainer "Jay Fong <fjc0kb@gmail.com>"
+
+ENV CADDY_VERSION=1.0.5
+
 # 证书申请人邮箱
 ENV APPLICANT_EMAIL=""
+
 # 证书存放路径
 ENV CADDYPATH=/caddy/certs
 
-COPY Caddyfile .
-COPY index.html /srv/index.html
-COPY entrypoint.sh .
+# Let's Encrypt Agreement
+ENV ACME_AGREE="true"
 
-RUN apk add --update --no-cache ca-certificates mailcap tzdata \
-  && wget -O- ${GET_CADDY_URL} | tar --no-same-owner -C /usr/bin/ -xz caddy \
-  && chmod +x /usr/bin/caddy entrypoint.sh \
-  && /usr/bin/caddy -version
+# Telemetry Stats
+ENV ENABLE_TELEMETRY="false"
+
+RUN apk add --no-cache \
+    ca-certificates \
+    git \
+    mailcap \
+    openssh-client \
+    tzdata
+
+# install caddy
+COPY --from=builder /install/caddy /usr/bin/caddy
+
+# validate install
+RUN /usr/bin/caddy -version
+RUN /usr/bin/caddy -plugins
 
 EXPOSE 80 443 2015
+WORKDIR /srv
+
+COPY Caddyfile /caddy/Caddyfile
+COPY index.html /srv/index.html
+
+# install process wrapper
+COPY --from=builder /go/bin/parent /bin/parent
 
 ENTRYPOINT ["./entrypoint.sh"]
-
-CMD ["-conf", "/caddy/Caddyfile", "-log", "stdout", "-agree"]
+CMD ["--conf", "/caddy/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE", "--email=$APPLICANT_EMAIL"]
