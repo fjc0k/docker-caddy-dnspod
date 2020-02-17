@@ -30,12 +30,6 @@ ENV APPLICANT_EMAIL=""
 # 证书存放路径
 ENV CADDYPATH=/caddy/certs
 
-# Let's Encrypt Agreement
-ENV ACME_AGREE="true"
-
-# Telemetry Stats
-ENV ENABLE_TELEMETRY="false"
-
 RUN apk add --no-cache \
     ca-certificates \
     git \
@@ -62,4 +56,4 @@ RUN chmod +x entrypoint.sh
 COPY --from=builder /go/bin/parent /bin/parent
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["-conf", "/caddy/Caddyfile", "-log", "stdout", "-agree", "$ACME_AGREE", "-email", "$APPLICANT_EMAIL"]
+CMD ["-conf", "/caddy/Caddyfile", "-log", "stdout", "-agree"]
