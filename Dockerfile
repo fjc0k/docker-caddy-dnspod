@@ -62,4 +62,4 @@ RUN chmod +x entrypoint.sh
 COPY --from=builder /go/bin/parent /bin/parent
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["--conf", "/caddy/Caddyfile", "--log", "stdout", "--agree=$ACME_AGREE", "--email=$APPLICANT_EMAIL"]
+CMD ["-conf", "/caddy/Caddyfile", "-log", "stdout", "-agree", "$ACME_AGREE", "-email", "$APPLICANT_EMAIL"]
