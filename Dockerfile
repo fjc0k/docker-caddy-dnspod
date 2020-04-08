@@ -8,7 +8,7 @@ RUN apk add --no-cache git gcc musl-dev
 COPY builder.sh /usr/bin/builder.sh
 
 ARG version="v1"
-ARG plugins="cache,cors,expires,realip,ipfilter,forwardproxy,webdav,dnspod"
+ARG plugins="cache,cors,expires,realip,ipfilter,dnspod"
 ARG enable_telemetry="false"
 
 # process wrapper
