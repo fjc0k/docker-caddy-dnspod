@@ -1,15 +1,17 @@
 # docker-caddy-dnspod
 
-在 [Docker](https://www.docker.com/) 中运行 [Caddy](https://caddyserver.com)。
+在 [Docker](https://www.docker.com/) 中运行 [Caddy 1](https://caddyserver.com/v1/)。
 
 ## 内置插件
 
-- [http.cache](https://caddyserver.com/docs/http.cache)
-- [http.cors](https://caddyserver.com/docs/http.cors)
-- [http.expires](https://caddyserver.com/docs/http.expires)
-- [http.realip](https://caddyserver.com/docs/http.realip)
-- [http.ipfilter](https://caddyserver.com/docs/http.ipfilter)
-- [tls.dns.dnspod](https://caddyserver.com/docs/tls.dns.dnspod)
+- [http.cache](https://caddyserver.com/v1/docs/http.cache)
+- [http.cors](https://caddyserver.com/v1/docs/http.cors)
+- [http.expires](https://caddyserver.com/v1/docs/http.expires)
+- [http.realip](https://caddyserver.com/v1/docs/http.realip)
+- [http.ipfilter](https://caddyserver.com/v1/docs/http.ipfilter)
+- [http.forwardproxy](https://caddyserver.com/v1/docs/http.forwardproxy)
+- [http.webdav](https://caddyserver.com/v1/docs/http.webdav)
+- [tls.dns.dnspod](https://caddyserver.com/v1/docs/tls.dns.dnspod)
 
 ## 使用
 

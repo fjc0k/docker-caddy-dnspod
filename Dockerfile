@@ -7,8 +7,8 @@ RUN apk add --no-cache git gcc musl-dev
 
 COPY builder.sh /usr/bin/builder.sh
 
-ARG version="master"
-ARG plugins="cache,cors,expires,realip,ipfilter,dnspod"
+ARG version="v1"
+ARG plugins="cache,cors,expires,realip,ipfilter,forwardproxy,webdav,dnspod"
 ARG enable_telemetry="false"
 
 # process wrapper
@@ -31,11 +31,11 @@ ENV APPLICANT_EMAIL=""
 ENV CADDYPATH=/caddy/certs
 
 RUN apk add --no-cache \
-    ca-certificates \
-    git \
-    mailcap \
-    openssh-client \
-    tzdata
+  ca-certificates \
+  git \
+  mailcap \
+  openssh-client \
+  tzdata
 
 # install caddy
 COPY --from=builder /install/caddy /usr/bin/caddy
